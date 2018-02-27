@@ -103,14 +103,14 @@ const appStart = function(){
 
 If we now click the button it does not refresh the page (Yay!) or submit the form (Oh no!) We will send the data to the server manually.
 
-Now you might ask, why not use a button instead of a form? Buttons don't redirect to a new page by default. That is a good question, but forms do have some nice features that we would like to keep. For example, a well-written forms improves the accessiblity of your website. And a `<form>` with a `<submit>` will, be default, let a user hit the Enter key to submit the form, rather than needing to click the `<button>`.
+Now you might ask, why not use a button instead of a form? Buttons don't redirect to a new page by default. That is a good question, but forms do have some nice features that we would like to keep. For example, a well-written forms improves the accessiblity of your website. And a `<form>` with a `<submit>` will, by default, let a user hit the Enter key to submit the form, rather than needing to click the `<button>`.
 
 We need to get the values from the name input box and the quote input box.
 
 ```js
 // app.js
-const createButtonClicked = function(evt) {
-  evt.preventDefault();
+const createButtonClicked = function(event) {
+  event.preventDefault();
   console.log('form submit clicked');
 
   const nameInputValue = document.querySelector('#name').value;
