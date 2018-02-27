@@ -17,7 +17,7 @@ Request.prototype.get = function(callback) {
   request.send();
 }
 
-Request.prototype.post = function(callback, payload) {
+Request.prototype.post = function(callback, body) {
   const request = new XMLHttpRequest();
   request.open('POST', this.url);
   request.setRequestHeader('Content-Type', 'application/json');
@@ -29,7 +29,20 @@ Request.prototype.post = function(callback, payload) {
 
     callback(responseBody);
   });
-  request.send(JSON.stringify(payload));
+  request.send(JSON.stringify(body));
+}
+
+Request.prototype.delete = function (callback) {
+  const request = new XMLHttpRequest();
+  request.open('DELETE', this.url);
+  request.addEventListener('load', function () {
+    if (this.status !== 204) {
+      return;
+    }
+
+    callback();
+  });
+  request.send();
 }
 
 module.exports = Request;

@@ -6,7 +6,7 @@ const request = new Request('http://localhost:3000/api/quotes');
 
 const createButtonClicked = function (event) {
   event.preventDefault();
-  console.log('form submit clicked');
+  // console.log('form submit clicked');
 
   const nameInputValue = document.querySelector('#name').value;
   const quoteInputValue = document.querySelector('#quote').value;
@@ -18,11 +18,18 @@ const createButtonClicked = function (event) {
   request.post(createRequestComplete, quoteToSend);
 };
 
+const deleteAllButtonClicked = function (event) {
+  request.delete(deleteAllRequestComplete);
+}
+
 const appStart = function () {
   request.get(getQuotesRequestComplete);
 
   const createQuoteButton = document.querySelector('#submit-quote');
   createQuoteButton.addEventListener('click', createButtonClicked);
+
+  const deleteAllButton = document.querySelector('#deleteButton');
+  deleteAllButton.addEventListener('click', deleteAllButtonClicked);
 };
 
 const getQuotesRequestComplete = function(allQuotes)  {
@@ -33,6 +40,10 @@ const getQuotesRequestComplete = function(allQuotes)  {
 
 const createRequestComplete = function (newQuote) {
   quoteView.addQuote(newQuote);
-}
+};
+
+const deleteAllRequestComplete = function () {
+  quoteView.clear();
+};
 
 document.addEventListener('DOMContentLoaded', appStart);

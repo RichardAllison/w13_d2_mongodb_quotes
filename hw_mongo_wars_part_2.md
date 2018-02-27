@@ -186,7 +186,7 @@ Odd, why is it saying undefined. Well actually we need to tell the server what w
 
 ```js
 // request.js
-Request.prototype.post = function(callback, payload) {
+Request.prototype.post = function(callback, body) {
   const request = new XMLHttpRequest();
   request.open('POST', this.url);
   request.setRequestHeader('Content-Type', 'application/json'); // NEW
@@ -199,7 +199,7 @@ Request.prototype.post = function(callback, payload) {
 
     callback(responseBody);
   });
-  request.send(JSON.stringify(payload));
+  request.send(JSON.stringify(body));
 }
 ```
 
