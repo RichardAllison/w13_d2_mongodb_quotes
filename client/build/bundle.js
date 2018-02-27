@@ -74,6 +74,21 @@ const Request = function(url) {
   this.url = url;
 }
 
+Request.prototype.get = function(callback) {
+  const request = new XMLHttpRequest();
+  request.open('GET', this.url);
+  request.addEventListener('load', function() {
+    if (this.status !== 200) {
+      return;
+    }
+
+    const responseBody = JSON.parse(this.responseText);
+
+    callback(responseBody);
+  });
+  request.send();
+}
+
 module.exports = Request;
 
 
@@ -119,7 +134,11 @@ const quoteView = new QuoteView();
 const request = new Request('http://localhost:3000/api/quotes');
 
 const appStart = function(){
+  request.get(getQuotesRequestComplete);
+}
 
+const getQuotesRequestComplete = function(allQuotes)  {
+  console.log(allQuotes);
 }
 
 document.addEventListener('DOMContentLoaded', appStart);
